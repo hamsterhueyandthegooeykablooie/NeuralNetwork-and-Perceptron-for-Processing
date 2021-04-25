@@ -1,44 +1,54 @@
-# NeuralNetwork-and-Perceptron-for-Processing
+NeuralNetwork-and-Perceptron-for-Processing
 
-# THIS PROJECT CONTAINS TWO CLASSES, THE NEURAL NETWORK CLASS AND THE PERCEPTRON CLASS. THE DIFFERENCE BETWEEN THE TWO IS THAT A NEURAL NETWORK HAS HIDDEN LAYERS, WHEREAS A PERCEPTRON DOES NOT. THE PERCEPTRON CLASS SHOULD BE USED FOR LINEAR TASKS, LIKE PLAYING FLAPPY BIRD. THE NEURAL NETWORK CLASS IS MUCH MORE POWERFUL, BUT YOU SHOULDN'T USE IT WHEN YOU COULD USE A PERCEPTRON
+This project contains two classes, the Neural Network class and the Perceptron class. The difference between the two is that a Neural Network has hidden layers, whereas a perceptron does not. The perceptron class should be used only for linearly seperable tasks. The Neural Network class is much more powerful, but you shouldn't use if when you could be using a perceptron.
 
-# THE NEURAL NETWORK (NN) CLASS TAKES 3 ARGUEMENTS. A FLOAT[] OF INPUTS, AN INT[] OF HIDDEN LAYERS, AND AN INT OF OUTPUTS. FOR EXAMPLE, YOU MIGHT CALL IT LIKE:
-# NN nn;
-# float[] inputs = {2, 3};
-# int[] hidden = {4, 3};
-# nn = new NN(inputs, hidden, 2);
-# nn.randomize(); <------- THIS FUNCTION RANDOMIZES THE WEIGHTS AND BIASES IN THE NEURAL NETWORK
-# IF YOU'RE USING THIS PROGRAM TO PLAY A GAME, YOU'LL NEED TO CONSTANTLY UPDATE THE INPUTS YOU'RE GIVING THE CLASS. FOR EXAMPLE:
-# void brain() {
-#   inputs[0] = x;
-#   inputs[1] = y;
-#   nn.compute(); <------- THIS FUNCTION RUNS THE NEURAL NETWORKS CALCULATIONS. THAT MEANS YOU'LL TYPICALLY WANT TO RUN THE brain() FUNCTION IN draw()
-#}
+The Neural Network (NN) class takes 3 arguements, a float[] of inputs, an int[] of hidden layers, and an int of outputs. For example, you might call it likes this:
+NN nn;
+float[] inputs = {2, 3};
+int[] hidden = {4, 3};
+nn = new NN(inputs, hidden, 2);
+nn.randomize(); <------- This function randomizes the weights and biases in the Neural Network
 
-# THE PERCEPTRON CLASS TAKES 2 ARGUEMENTS, A FLOAT[] OF INPUTS AND AN INT OF OUTPUTS. YOU MIGHT CALL IT LIKE:
-# Perceptron perceptron;
-# float[] inputs = {2, 3};
-# perceptron = new Perceptron(inputs, 1);
-# perceptron.randomize(); <------- THIS FUNCTION RANDOMIZES THE WEIGHTS AND BIASES IN THE PERCEPTRON
-# IF YOU'RE USING THIS PROGRAM TO PLAY A GAME, YOU'LL NEED TO CONSTANTLY UPDATE THE INPUTS YOU'RE GIVING THE CLASS. FOR EXAMPLE:
-# void brain() {
-#   inputs[0] = x;
-#   inputs[1] = y;
-#   perceptron.compute(); <------- THIS FUNCTION RUNS THE NEURAL NETWORKS CALCULATIONS. THAT MEANS YOU'LL TYPICALLY WANT TO RUN THE brain() FUNCTION IN draw()
-# }
+If you're using this program to play a game, you'll need to constantly update the inputs you're giving the class. For example:
+void brain() {
+  inputs[0] = x;
+  inputs[1] = y;
+  nn.compute(); <------- This function runs the Neural Networks calculations. That means you'll typically want to run the brain() function in draw().
+}
 
-# YOU CAN THEN PULL THE OUTPUTS THROUGH:
-# nn.outputs[0] = myVar; <------- THE ARRAY OUTPUTS[] HAS THE NUMBER OF OBJECTS THAT YOU CALLED IN THE CONSTRUCTOR
-# OR, IF YOU'RE USING THE PERCEPTRON:
-# perceptron.outputs[0] = myVar;
+The perceptron class takes 2 arguements, a float[] of inputs and an int of outputs. You might call it like this:
+Perceptron perceptron;
+float[] inputs = {2, 3};
+perceptron = new Perceptron(inputs, 1);
+perceptron.randomize(); <------- This function randomizes the weights and biases in the Perceptron
 
-# LASTLY, BOTH THE NEURAL NETWORK AND THE PERCEPTRON HAVE A FEW FUNCTIONS:
 
-# mutate(): TAKES TWO ARGUEMENTS: THE NN/PERCEPTRON YOU WANT TO MUTATE, FLOAT THE CHANCE OF EACH OF THE WEIGHTS AND BIASES BEING MUTATED (MUST BE IN BETWEEN 0-100);
+If you're using this program to play a game, you'll need to constantly update the inputs you're giving the class. For example:
+void brain() {
+  inputs[0] = x;
+  inputs[1] = y;
+  perceptron.compute(); <------- This function runs the Perceptrons calculations. That means you'll typically want to run the brain() function in draw();
+}
 
-# transfer(); TAKES TWO ARGUEMENTS: THE NN/PERCEPTRON YOU ARE TRANSFERRING, AND THE NN/PERCEPTRON YOU ARE TRANSFERRING TO. USE THIS INSTEAD OF "nn = othernn;"
+You can then pull the outputs like this:
+nn.outputs[0] = myVar; <------- The array outputs[] has the number of object that you called in the last number of the constructor.
+if (nn.outputs[0] > 0.5) {
+  doSomething();
+}
+Or, if you're using the perceptron:
+perceptron.outputs[0] = myVar;
+if (perceptron.outputs[0] > 0.5) {
+  doSomething();
+}
 
-# breed(); TAKES 8 ARGUEMENTS: THE FIRST PARENT WHICH IS AN NN/PERCEPTRON, THE SECOND PARENT WHICH IS AN NN/PERCEPTRON, INT WHERE YOU WANT TO BEGIN TO SPLICE THE WEIGHTS, INT WHERE YOU WANT TO STOP SPLICING THE WEIGHTS, INT WHERE YOU WANT TO START SPLICING THE BIASES, INT WHERE YOU WANT TO STOP SPLICING THE BIASES, FLOAT THE MUTATION RATE OF THE WEIGHTS AND BIASES DURING CROSS-BREEDING, AND THE NN/PERCEPTRON THAT YOU WANT TO INJECT THE NEW CHILD INTO
+IMPORTANT: outputs will always be returned as a number between -1 and 1. This is because we use the tanH activation function.
 
-# ENJOY
+Lastly, both the Neural Network and the Perceptron have a few functions:
 
+mutate(): Takes two arguements: the NN/Percetron you want to mutate, float - the chance of each of the weights and biases being mutated (must be between 0 and 100);
+
+transfer(); Takes two arguements: the NN/Perceptron you are transferring, and the NN/Perceptron you are transferring to. Use this instead of "nn = othernn" because the latter often leads to problems;
+
+Takes 8 arguements: the first parent which is an NN/Perceptron, the second parent which is an NN/Perceptron, int - the index of the weights[] float where you want to being to splice the weights from the second parent, int - the index where you want to stop splicing the weights of the second parent, int - the index of the biases[] float where you want to being to splice the biases from the second parent, int - the index where you want to stop splicing the biases of the second parent, float - the mutation rate of the weights and biases after performing cross-breeding (works the same as the mutate() function), lastly, the NN/Perceptron that you want to be the child of the first two parents.
+
+Enjoy!
