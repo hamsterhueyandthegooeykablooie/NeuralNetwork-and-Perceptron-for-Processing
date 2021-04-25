@@ -165,7 +165,7 @@ void keyPressed() {
 
 void draw() {
   for (float t = 0; t < timeJump; t++) {
-    background(255);
+    background(100, 180, 180);
     pipe.update();
     writeScore();
     writeGen();
