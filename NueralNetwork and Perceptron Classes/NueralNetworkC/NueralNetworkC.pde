@@ -102,8 +102,9 @@ class NN {
     next_hidden_outputs = new float[hidden[0]];
     hidden_outputs = new float[hidden[0]];
     outputs = new float[num_of_outputs];
-    hidden_weights = 0;
-    hidden_biases = 0;
+
+    hidden_outputs = new float[hidden[0]];
+
     if (hidden.length == 1) {
       for (int i = 0; i < hidden[0]; i++) {
         for (int x = 0; x < num_of_inputs; x++) {
@@ -122,11 +123,9 @@ class NN {
         outputs[i] += biases[hidden[0]+i];
         outputs[i] = (float)Math.tanh(outputs[i]);
       }
-    } else if (hidden.length > 1) {
-      hidden_weights = hidden[0]*inputs.length;
-      hidden_outputs = new float[hidden[0]];
+    }
 
-
+    if (hidden.length > 1) {
       for (int i = 0; i < hidden[0]; i++) {
         for (int x = 0; x < num_of_inputs; x++) {
           hidden_outputs[i] += inputs[x]*weights[x+(i*num_of_inputs)];
@@ -137,30 +136,33 @@ class NN {
         }
       }
 
+      hidden_weights = (hidden[0]*inputs.length);
+      hidden_biases = hidden[0];
+
       for (int i = 1; i < hidden.length; i++) {
-        hidden_biases += hidden[i-1]-1;
         next_hidden_outputs = new float[hidden[i]];
         for (int x = 0; x < hidden[i]; x++) {
           for (int j = 0; j < hidden[i-1]; j++) {
-            next_hidden_outputs[x] += hidden_outputs[j]*weights[(hidden_weights)+j+(x*hidden[i-1])];
-            //CORRECT LINE HERE MIGHT BE 
-            //next_hidden_outputs[x] += hidden_outputs[j]*weights[(hidden_weights)+j+(x*hidden[i])];
+            next_hidden_outputs[x] += hidden_outputs[j]*weights[(hidden_weights)];
+            hidden_weights ++;
           }
-          next_hidden_outputs[x] += biases[hidden_biases+x+1];
+          next_hidden_outputs[x] += biases[hidden_biases];
           if (next_hidden_outputs[x] < 0) {
             next_hidden_outputs[x] = 0;
           }
+          hidden_biases++;
         }
         hidden_outputs = next_hidden_outputs;
-        hidden_weights += hidden[i]*hidden[i-1]-1;
       }
 
       for (int i = 0; i < num_of_outputs; i++) {
         for (int x = 0; x < hidden[hidden.length-1]; x++) {
-          outputs[i] += hidden_outputs[x]*weights[weights.length-1-x];
+          outputs[i] += hidden_outputs[x]*weights[hidden_weights];
+          hidden_weights++;
         }
-        outputs[i] += biases[biases.length-i-1];
+        outputs[i] += biases[hidden_biases];
         outputs[i] = (float)Math.tanh(outputs[i]);
+        hidden_biases++;
       }
     }
   }
