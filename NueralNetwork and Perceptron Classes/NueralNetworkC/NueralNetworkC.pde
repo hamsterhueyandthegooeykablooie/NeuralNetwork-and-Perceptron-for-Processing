@@ -124,7 +124,6 @@ class NN {
       }
     } else if (hidden.length > 1) {
       hidden_weights = hidden[0]*inputs.length;
-      hidden_biases = 0;
       hidden_outputs = new float[hidden[0]];
 
 
@@ -147,7 +146,7 @@ class NN {
             //CORRECT LINE HERE MIGHT BE 
             //next_hidden_outputs[x] += hidden_outputs[j]*weights[(hidden_weights)+j+(x*hidden[i])];
           }
-          next_hidden_outputs[x] += biases[hidden_biases+x];
+          next_hidden_outputs[x] += biases[hidden_biases+x+1];
           if (next_hidden_outputs[x] < 0) {
             next_hidden_outputs[x] = 0;
           }
@@ -156,16 +155,13 @@ class NN {
         hidden_weights += hidden[i]*hidden[i-1]-1;
       }
 
-      hidden_biases += hidden[hidden.length-1]-1;
-
       for (int i = 0; i < num_of_outputs; i++) {
         for (int x = 0; x < hidden[hidden.length-1]; x++) {
           outputs[i] += hidden_outputs[x]*weights[weights.length-1-x];
         }
-        outputs[i] += biases[hidden_biases+i];
+        outputs[i] += biases[biases.length-i-1];
         outputs[i] = (float)Math.tanh(outputs[i]);
       }
     }
   }
-}
 }
