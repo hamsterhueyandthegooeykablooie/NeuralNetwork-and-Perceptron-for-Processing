@@ -37,12 +37,12 @@ class NN {
     mutationRate = mutRate;
     for (int x = 0; x < toMutate.weights.length; x++) {
       if ((random(0, 100))<mutationRate) {
-        toMutate.weights[x] = random(-1, 1);
+        toMutate.weights[x] += random(-0.5, 0.5);
       }
     }
     for (int x = 0; x < toMutate.biases.length; x++) {
       if (random(0, 100)<mutationRate) {
-        toMutate.biases[x] = random(-1, 1);
+        toMutate.biases[x] += random(-0.5, 0.5);
       }
     }
   }
@@ -193,12 +193,12 @@ class Perceptron {
     mutationRate = mutRate;
     for (int x = 0; x < toMutate.weights.length; x++) {
       if ((random(0, 100))<mutationRate) {
-        toMutate.weights[x] = random(-1, 1);
+        toMutate.weights[x] += random(-0.5, 0.5);
       }
     }
     for (int x = 0; x < toMutate.biases.length; x++) {
       if (random(0, 100)<mutationRate) {
-        toMutate.biases[x] = random(-1, 1);
+        toMutate.biases[x] += random(-0.5, 0.5);
       }
     }
   }
